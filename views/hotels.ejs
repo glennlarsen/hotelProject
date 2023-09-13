@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/stylesheets/navbar.css" rel="stylesheet">
+  <link href="/stylesheets/hotels.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Include the navbar -->
+  <%- include('./partials/navbar', {username: username, userId: userId}) %>
+
+    <section>
+      <div class="container">
+      <h2 class="p-3">Choose a hotel</h2>
+      <div class="row py-2">
+        <div class="col-md-6">
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search by location" aria-label="Search"
+              id="searchInput">
+          </form>
+        </div>
+      </div>
+      <div class="list-group">
+        <% hotels.forEach(function(hotel) { %>
+          <div class="row px-3 py-1 w-100 hotel-row" data-location="<%= hotel.Location.toLowerCase() %>">
+            <span class="col py-1 bg-info">
+              <%=hotel.Name%><span class="right">
+                  <%=hotel.Location%>
+                </span>
+            </span>
+            <%if(user !=null) {%>
+              <a href="/rooms/<%=hotel.id%>" class="col btn btn-secondary"> Rent a room</a>
+              <%};%>
+                <a href="/hotels/<%=hotel.id%>" class="col btn btn-secondary"> Details</a>
+                <% if (isAdmin){%>
+                <button onclick="deleteHotel('http\:\/\/localhost:3000\/hotels\/','<%=hotel.id%>')"
+                  class="col btn btn-danger">
+                  Delete
+                </button>
+                <%};%>
+          </div>
+          <% }); %>
+      </div>
+      <% if (isAdmin){%>
+        <button onclick="addHotel('http\:\/\/localhost:3000\/hotels')" class="btn btn-success right m-4">Add a new
+          hotel</button>
+        <%};%>
+      </div>
+    </section>
+
+    <script src="../javascripts/addHotel.js"></script>
+    <script src="../javascripts/deleteHotel.js"></script>
+    <script src="../javascripts/searchHotelLocation.js"></script>
+</body>
+
+</html>

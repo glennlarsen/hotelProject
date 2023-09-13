@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- views/navbar.ejs -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">Your travel</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/hotels">Hotels</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/rooms">Rooms</a>
+                    </li>
+                    <%if(username) {%>
+                        <%if(isAdmin) {%>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/users">User List</a>
+                            </li>
+                            <%};%>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/users/<%=userId%>">My reservations</a>
+                                </li>
+                                <li class="nav-item nav-link">Hello <b>
+                                        <%=username%>!
+                                    </b></li>
+                                <form action="/logout" style="display: flex" method="post">
+                                    <button class="logout" type="submit">Sign out</button>
+                                </form>
+                                <%} else {%>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/login">Login</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/signup">Sign Up</a>
+                                    </li>
+                                    <%};%>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+</body>
+
+</html>
